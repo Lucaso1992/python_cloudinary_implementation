@@ -5,6 +5,9 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
+import cloudinary
+import cloudinary.uploader
+
 
 api = Blueprint('api', __name__)
 
@@ -20,3 +23,12 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+@api.route('/upload', methods=['POST'])
+def upload():
+    file_to_upload = request.files['file']
+    if file_to_upload:
+        upload = cloudinary.uploader.upload(file_to_upload)
+        print('-------------la url donde esta la imagen-------------', upload.url)
+        return jsonify(upload)
+    return jsonify({"error": "No file uploaded"}), 400
