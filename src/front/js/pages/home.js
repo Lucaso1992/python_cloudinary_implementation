@@ -1,28 +1,28 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import { Uploader } from "../component/uploader.jsx";
 
 export const Home = () => {
-	const { store, actions } = useContext(Context);
+	const [file, setFile] = useState("");
 
+	const handleImg = (evento) => {
+		console.log(evento.target.files);
+		if (evento.target.files.length)
+			setFile(evento.target.file[0]);
+	}
+
+	const enviarImagen = () => {
+
+	}
 	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<Uploader/>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
+		<div className="text-center w-50 mt-5 row bg-secondary bg-opacity-10 m-auto">
+			<div className="col d-flex flex-column gap-4">
+				<h1>CLOUDINARY</h1>
+				<input type="file" onChange={(e) => handleImg(e)} />
+				<button className="btn btn-primary w-25 m-auto mb-3" onClick={enviarImagen}>Enviar</button>
 			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://start.4geeksacademy.com/starters/react-flask">
-					Read documentation
-				</a>
-			</p>
 		</div>
 	);
 };
