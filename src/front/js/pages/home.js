@@ -10,7 +10,7 @@ export const Home = () => {
 	const handleImg = (evento) => {
 		console.log(evento.target.files);
 		if (evento.target.files.length)
-			setFile(evento.target.file[0]);
+			setFile(evento.target.files[0]);
 	}
 
 	const enviarImagen = () => {
